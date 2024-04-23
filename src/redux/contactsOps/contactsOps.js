@@ -1,8 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { INITIAL_STATE } from "../contactsOps/contactsOps";
 
-const contactsSlice = createSlice({
-  name: "contactsSlice",
+export const INITIAL_STATE = {
+  contacts: {
+    items: [],
+    loading: false,
+    error: null,
+  },
+  filters: {
+    name: "",
+  },
+};
+
+const contactsOpsSlice = createSlice({
+  name: "contactsOpsSlice",
   initialState: INITIAL_STATE.contacts,
 
   reducers: {
@@ -17,6 +27,6 @@ const contactsSlice = createSlice({
   },
 });
 
-export const { addContact, deleteContact } = contactsSlice.actions;
+export const { addContact, deleteContact } = contactsOpsSlice.actions;
 
-export const contactsReducer = contactsSlice.reducer;
+export const contactsReducer = contactsOpsSlice.reducer;
