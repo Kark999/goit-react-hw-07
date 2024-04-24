@@ -1,4 +1,6 @@
 import { useDispatch } from "react-redux";
+import { BsFillPersonFill } from "react-icons/bs";
+import { BsFillTelephoneFill } from "react-icons/bs";
 import css from "./Contact.module.css";
 import { deleteContact } from "../../redux/contactsOps/contactsOps";
 
@@ -12,8 +14,14 @@ const Contacts = ({ contact }) => {
   return (
     <div className={css.contactCard}>
       <div className={css.contactInfo}>
-        <p className={css.contactText}>{contact.name}</p>
-        <p className={css.contactText}>{contact.number}</p>
+        <p className={css.contactText}>
+          <BsFillPersonFill className={css.contactListIcon} />
+          {contact.name}
+        </p>
+        <p className={css.contactText}>
+          <BsFillTelephoneFill className={css.contactListIcon} />
+          {contact.number}
+        </p>
       </div>
       <button className={css.deleteBtn} onClick={onDeleteContact}>
         Delete
