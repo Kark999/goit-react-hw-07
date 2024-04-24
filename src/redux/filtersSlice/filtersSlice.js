@@ -1,4 +1,4 @@
-import { INITIAL_STATE } from "../contactsOps/contactsOps";
+import { INITIAL_STATE } from "../contactsOps";
 import { createSlice } from "@reduxjs/toolkit";
 
 const filtersSlice = createSlice({

@@ -4,7 +4,7 @@ import {
   addContact,
   deleteContact,
   fetchContacts,
-} from "../contactsOps/contactsOps";
+} from "../contactsOps";
 
 export const selectFilteredContacts = createSelector(
   (state) => state.filters.name,
