@@ -1,4 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
+import { createAsyncThunk } from "@reduxjs/toolkit";
 
 export const INITIAL_STATE = {
   contacts: {
@@ -11,22 +12,40 @@ export const INITIAL_STATE = {
   },
 };
 
-const contactsOpsSlice = createSlice({
-  name: "contactsOpsSlice",
-  initialState: INITIAL_STATE.contacts,
+axios.defaults.baseURL = "https://6627e2e1b625bf088c0a2892.mockapi.io/";
 
-  reducers: {
-    addContact(state, action) {
-      state.items.push(action.payload);
-    },
-    deleteContact(state, action) {
-      state.items = state.items.filter(
-        (contact) => contact.id !== action.payload
-      );
-    },
-  },
-});
+export const fetchContacts = createAsyncThunk(
+  "contacts/fetchAll",
+  async (contacts, thunkAPI) => {
+    try {
+      const { data } = await axios.get("/contacts");
+      return data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
 
-export const { addContact, deleteContact } = contactsOpsSlice.actions;
+export const addContact = createAsyncThunk(
+  "contacts/addContact",
+  async (contact, thunkAPI) => {
+    try {
+      const { data } = await axios.post("/contacts", contact);
+      return data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
 
-export const contactsReducer = contactsOpsSlice.reducer;
+export const deleteContact = createAsyncThunk(
+  "contacts/deleteContact",
+  async (id, thunkAPI) => {
+    try {
+      const { data } = await axios.delete(`/contacts/${id}`);
+      return data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+  }
+);
